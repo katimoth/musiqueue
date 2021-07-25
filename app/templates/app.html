@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>MusiQueue</h1>
+<div class="row">
+  {% for track in tracks %}
+    <div class="col-md-4">
+      <p>{{ track }}</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
