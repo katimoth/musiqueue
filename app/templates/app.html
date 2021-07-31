@@ -2,11 +2,17 @@
 
 {% block page_content %}
 <h1>MusiQueue</h1>
-<div class="row">
+<ol class="list-group-numbered">
   {% for track in tracks %}
-    <div class="col-md-4">
-      <p>{{ track }}</p>
+  <li class="list-group-item" style="display: flex; align-items: center; list-style-position: inside;">
+    <div class="media" style="display: flex; align-items: stretch;" >
+      <img class="mr-3" src="{{ track.img_url }}" style="padding-left: 1em; padding-right: 1em;" alt="Track image">
+      <div class="media-body">
+        <h5 class="mt-1 mb-2" style="text-overflow: ellipsis; overflow: hidden;">{{ track.name }}</h5>
+        {{ track.artists }}
+      </div>
     </div>
+  </li>
   {% endfor %}
-</div>
+</ol>
 {% endblock %}

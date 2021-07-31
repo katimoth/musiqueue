@@ -3,12 +3,23 @@ import json
 import base64
 from app.admin import client_id, client_secret
 
-def get_track(trackid, token):
+def get_track_info(trackid, token):
   headers = {
     'Authorization': token
   }
-  response = requests.get(f'https://api.spotify.com/v1/tracks/{trackid}', headers=headers)
-  return response.json()
+  try:
+    response = requests.get(f'https://api.spotify.com/v1/tracks/{trackid}', headers=headers).json()
+  except JSONDecodeError:
+    print("Error decoding HTTP response")
+    exit(1)
+  artists = [artist["name"] for artist in response["artists"]]
+  track_info = {
+    "name": response["name"],
+    "artists": ", ".join(artists),
+    "img_url": response["album"]["images"][2]["url"]
+  }
+
+  return track_info
 
 def get_token():
   credentials = f'{client_id}:{client_secret}'
