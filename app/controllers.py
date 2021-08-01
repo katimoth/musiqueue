@@ -2,8 +2,9 @@ import requests
 import json
 import base64
 from app.admin import client_id, client_secret
+from app.models import Track, TRACKS
 
-def get_track_info(trackid, token):
+def getTrackInfo(trackid, token):
   headers = {
     'Authorization': token
   }
@@ -16,12 +17,12 @@ def get_track_info(trackid, token):
   track_info = {
     "name": response["name"],
     "artists": ", ".join(artists),
-    "img_url": response["album"]["images"][2]["url"]
+    "img_url": response["album"]["images"][2]["url"],
   }
 
   return track_info
 
-def get_token():
+def getToken():
   credentials = f'{client_id}:{client_secret}'
   cred_bytes = credentials.encode('ascii')
   base64_bytes = base64.b64encode(cred_bytes)
